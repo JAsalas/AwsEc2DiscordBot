@@ -19,21 +19,21 @@ async def on_message(message):
     if client.user.id in memberIDs:
         if 'stop' in message.content:
             if turnOffInstance():
-                await client.send_message(message.channel, 'AWS Instance stopping')
+                await message.channel.send(message.channel, 'AWS Instance stopping')
             else:
-                await client.send_message(message.channel, 'Error stopping AWS Instance')
+                await message.channel.send(message.channel, 'Error stopping AWS Instance')
         elif 'start' in message.content:
             if turnOnInstance():
-                await client.send_message(message.channel, 'AWS Instance starting')
+                await message.channel.send(message.channel, 'AWS Instance starting')
             else:
-                await client.send_message(message.channel, 'Error starting AWS Instance')
+                await message.channel.send(message.channel, 'Error starting AWS Instance')
         elif 'state' in message.content:
-            await client.send_message(message.channel, 'AWS Instance state is: ' + getInstanceState())
+            await message.channel.send(message.channel, 'AWS Instance state is: ' + getInstanceState())
         elif 'reboot' in message.content:
             if rebootInstance():
-                await client.send_message(message.channel, 'AWS Instance rebooting')
+                await message.channel.send(message.channel, 'AWS Instance rebooting')
             else:
-                await client.send_message(message.channel, 'Error rebooting AWS Instance')
+                await message.channel.send(message.channel, 'Error rebooting AWS Instance')
 
 def turnOffInstance():
     try:
