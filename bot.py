@@ -17,23 +17,23 @@ async def on_ready():
 async def on_message(message):
     memberIDs = (member.id for member in message.mentions)
     if client.user.id in memberIDs:
-        if 'stop' in message.content:
+        if 'pa-stop' in message.content:
             if turnOffInstance():
-                await message.channel.send('AWS Instance stopping')
+                await message.channel.send('Ayan stopping na.')
             else:
-                await message.channel.send('Error stopping AWS Instance')
-        elif 'start' in message.content:
+                await message.channel.send('Sira pa eh, ipagapatawad mo.')
+        elif 'pa-start' in message.content:
             if turnOnInstance():
-                await message.channel.send('AWS Instance starting')
+                await message.channel.send('Ayan starting na.')
             else:
-                await message.channel.send('Error starting AWS Instance')
-        elif 'state' in message.content:
-            await message.channel.send('AWS Instance state is: ' + getInstanceState())
-        elif 'reboot' in message.content:
+                await message.channel.send('Ayaw')
+        elif 'musta' in message.content:
+            await message.channel.send('Dabarkads, ang server ay currently ' + getInstanceState())
+        elif 'pa-reboot' in message.content:
             if rebootInstance():
-                await message.channel.send('AWS Instance rebooting')
+                await message.channel.send('on-off ko lang saglit')
             else:
-                await message.channel.send('Error rebooting AWS Instance')
+                await message.channel.send('Ayaw')
 
 def turnOffInstance():
     try:
