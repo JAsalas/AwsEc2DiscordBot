@@ -1,16 +1,20 @@
 import discord, asyncio, os, boto3
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client = discord.Client()
 
 ec2 = boto3.resource('ec2')
 #Temp
-instance = ec2.Instance('')
+instance = ec2.Instance(os.getenv('VALHEIM_SERVER_ID'))
 
 @client.event
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
+    print(os.getenv('VALHEIM_SERVER_ID'))
     print('------------')
 
 @client.event
@@ -36,9 +40,8 @@ async def on_message(message):
             else:
                 await message.channel.send('Ayaw')
         elif 'kanta ka nga' in message.content:
-            await message.channel.send('Paos pa ko dabarkads, saka na lang.')
-
-    if any(a in message.content for a in drugs):
+            await message.reply('Paos pa ko dabarkads, saka na lang.')
+    if any(a in message.content.lower() for a in drugs):
         await message.reply("Nako bawal yan dabarkads")
 
 def turnOffInstance():
@@ -66,4 +69,4 @@ def rebootInstance():
         return False
 
 
-client.run(os.environ['AWSDISCORDTOKEN'])
+client.run(os.getenv('AWSDISCORDTOKEN'))
