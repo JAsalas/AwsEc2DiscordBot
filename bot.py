@@ -37,7 +37,7 @@ async def on_message(message):
 
 def turnOffInstance():
     try:
-        instance.stop(False, False)
+        instance.stop(False, False, False)
         return True
     except:
         return False
