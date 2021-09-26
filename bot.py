@@ -4,7 +4,7 @@ client = discord.Client()
 
 ec2 = boto3.resource('ec2')
 #Temp
-instance = ec2.Instance('i-06bc2e80c17a5636c')
+instance = ec2.Instance('')
 
 @client.event
 async def on_ready():
@@ -15,6 +15,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    drugs = ["shabu","drugs","juts","marijuana","cocaine","meth"]
     memberIDs = (member.id for member in message.mentions)
     if client.user.id in memberIDs:
         if 'pa-stop' in message.content:
@@ -28,12 +29,17 @@ async def on_message(message):
             else:
                 await message.channel.send('Ayaw')
         elif 'musta' in message.content:
-            await message.channel.send('Dabarkads, ang server ay currently ' + getInstanceState())
+            await message.channel.send('Dabarkads, ang server ay kasalukuyang ' + getInstanceState())
         elif 'pa-reboot' in message.content:
             if rebootInstance():
-                await message.channel.send('on-off ko lang saglit')
+                await message.channel.send('off-on ko lang saglit')
             else:
                 await message.channel.send('Ayaw')
+        elif 'kanta ka nga' in message.content:
+            await message.channel.send('Paos pa ko dabarkads, saka na lang.')
+
+    if any(a in message.content for a in drugs):
+        await message.reply("Nako bawal yan dabarkads")
 
 def turnOffInstance():
     try:
